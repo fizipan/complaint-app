@@ -45,6 +45,10 @@ class StoreUserRequest extends FormRequest
                 'required',
                 'array',
             ],
+            'user_type_id' => [
+                'required',
+                'integer', 'exists:user_type,id',
+            ],
         ];
     }
 }

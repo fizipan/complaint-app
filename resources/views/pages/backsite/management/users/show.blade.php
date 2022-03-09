@@ -19,6 +19,11 @@
             @endforeach
         </td>
     </tr>
+    {{-- user type --}}
+    <tr>
+        <th>User Type</th>
+        <td>{{ isset($user->user_type->name) ? $user->user_type->name : 'N/A' }}</td>
+    </tr>
     <tr>
         <th>Address</th>
         <td>{{ isset($detail_user->address) ? $detail_user->address : 'N/A' }}</td>

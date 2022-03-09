@@ -10,6 +10,7 @@ use App\Http\Requests\Backsite\UpdateSecurityRequest;
 use App\Http\Requests\Backsite\UploadPhotoProfileRequest;
 
 use App\Models\DetailUsers;
+use App\Models\MasterData\UserType;
 use App\Models\User;
 
 use Illuminate\Http\Request;
@@ -38,8 +39,9 @@ class ProfilesController extends Controller
     {
         $user = User::where('id', Auth::user()->id)->first();
         $detail_user = DetailUsers::where('users_id', Auth::user()->id)->first();
+        $user_type = UserType::all()->pluck('name', 'id');
 
-        return view('pages.backsite.profile.index', compact('user', 'detail_user'));
+        return view('pages.backsite.profile.index', compact('user', 'detail_user', 'user_type'));
     }
 
     /**
@@ -121,9 +123,22 @@ class ProfilesController extends Controller
 
         $data = $request_detail_user->all();
 
+        // set number id
+        $data['number_id'] = str_replace(' ', '', $data['number_id']);
+        $data['number_id'] = str_replace('_', '', $data['number_id']);
+
         // set mobile phone
         $data['mobile_phone'] = str_replace(' ', '', $data['mobile_phone']);
         $data['mobile_phone'] = str_replace('_', '', $data['mobile_phone']);
+
+        // date of birth ------------------------------
+        $date = $data['date_of_birth'];
+        $dj = substr($date, 0, 2);
+        $mj = substr($date, 3, 2);
+        $yj = substr($date, 6);
+        $date = $yj . '-' . $mj . '-' . $dj;
+        $data['date_of_birth'] = $date; //change format
+        // -----------------------------------------------
 
         $item = DetailUsers::where('users_id', $user['id'])->first();
         $item->update($data);

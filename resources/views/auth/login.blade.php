@@ -15,7 +15,7 @@
         </div>
 
         <!-- Form -->
-        <form class="js-validate" method="POST" action="">
+        <form class="js-validate" method="POST" action="{{ route('login') }}">
 
             @csrf
 

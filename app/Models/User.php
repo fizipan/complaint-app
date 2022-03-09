@@ -105,9 +105,15 @@ class User extends Authenticatable
         return $this->hasOne('App\Models\DetailUsers', 'users_id');
     }
 
+    public function user_type()
+    {
+        return $this->belongsTo('App\Models\MasterData\UserType', 'user_type_id');
+    }
+
     // one to many --- //
     public function role_user()
     {
         return $this->hasMany('App\Models\RoleUser', 'user_id');
     }
+    
 }

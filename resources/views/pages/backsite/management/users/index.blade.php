@@ -129,6 +129,25 @@
                                                         </div>
                                                     </div>
 
+                                                    <div class="form-group row {{ $errors->has('user_type_id') ? 'has-error' : '' }}">
+                                                        <label class="col-md-3 label-control">Type <code style="color:red;">required</code></label>
+                                                        <div class="col-md-9 mx-auto">
+                                                        
+                                                            <select name="user_type_id" 
+                                                                    id="user_type_id" 
+                                                                    class="form-control select2" required>
+                                                                    <option value="{{ "" }}" disabled selected>Choose</option>
+                                                                @foreach($user_type as $id => $user_type)
+                                                                    <option value="{{ $id }}" {{ old('user_type_id') == $id ? 'selected' : '' }}>{{ $user_type }}</option>
+                                                                @endforeach
+                                                            </select>
+
+                                                            @if($errors->has('user_type_id'))
+                                                                <p style="font-style: bold; color: red;">{{ $errors->first('user_type_id') }}</p>
+                                                            @endif
+                                                        </div>
+                                                    </div>
+
                                                     <div class="form-group row">
                                                         <label class="col-md-3 label-control" for="address">Address <code style="color:green;">optional</code></label>
                                                         <div class="col-md-9 mx-auto">

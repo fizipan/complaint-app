@@ -17,8 +17,8 @@
           <div class="navbar-nav-wrap-content text-center">
             <div class="d-block">
               @guest
-                <a class="btn btn-sm btn-ghost-light transition-3d-hover mr-2" style="width: 120px" href="{{ route('login') }}">LOGIN</a>
-                <a class="btn btn-sm btn-outline-light transition-3d-hover ml-2" style="width: 120px" href="{{ route('register') }}">REGISTER</a>
+                <a class="btn btn-sm btn-ghost-light transition-3d-hover mr-2"  href="{{ route('login') }}">LOGIN</a>
+                <a class="btn btn-sm btn-outline-light transition-3d-hover ml-2"  href="{{ route('register') }}">REGISTER</a>
               @endguest
             </div>
           </div>

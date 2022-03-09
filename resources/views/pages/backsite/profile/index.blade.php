@@ -118,8 +118,12 @@
                                                 <div class="col-12 col-sm-6">
                                                     <div class="form-group">
                                                         <div class="controls">
-                                                            <label>Status <code style="color:red;">required</code></label>
-                                                            <input type="text" class="form-control" value="{{ $detail_user->status == 1 ? 'Active' : 'Suspend' }}" readonly>
+                                                            <label>Number ID <code style="color:green;">optional</code></label>
+                                                            <input type="text" id="number_id" name="number_id" class="form-control" placeholder="xxxxxxxxxxxxxxxx" value="{{$user->detail_users->number_id ?? ''}}" autocomplete="off" minlength="16" data-inputmask="'mask': '9999999999999999'">
+
+                                                            @if($errors->has('number_id'))
+                                                                <p style="font-style: bold; color: red;">{{ $errors->first('number_id') }}</p>
+                                                            @endif
                                                         </div>
                                                     </div>
                                                 </div>
@@ -146,6 +150,64 @@
                                                             @if($errors->has('mobile_phone'))
                                                                 <p style="font-style: bold; color: red;">{{ $errors->first('mobile_phone') }}</p>
                                                             @endif
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-12 col-sm-6">
+                                                    <div class="form-group">
+                                                        <div class="controls">
+                                                            <label>Date Of Birth <code style="color:red;">required</code></label>
+                                                            <input type="text" id="date_of_birth" name="date_of_birth" class="form-control" placeholder="example for date of birth" value="{{ isset($user->detail_users->date_of_birth)  ? $user->detail_users->date_of_birth->format('d/m/Y') : ''}}" autocomplete="off" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-inputmask-placeholder="dd/mm/yyyy" required>
+
+                                                            @if($errors->has('date_of_birth'))
+                                                                <p style="font-style: bold; color: red;">{{ $errors->first('date_of_birth') }}</p>
+                                                            @endif
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-12 col-sm-6">
+                                                    <div class="form-group">
+                                                        <div class="controls">
+                                                            <label>Gender <code style="color:red;">required</code></label>
+                                                            <select name="gender" 
+                                                                    id="gender" 
+                                                                    class="form-control select2" required>
+                                                                    <option value="{{ '' }}" disabled selected>Choose</option>
+                                                                    <option value="{{ 1 }}" {{ $user->detail_users->gender == 1 ? 'selected' : '' }}>{{ 'Male' }}</option>
+                                                                    <option value="{{ 2 }}" {{ $user->detail_users->gender == 2 ? 'selected' : '' }}>{{ 'Female' }}</option>
+                                                            </select>
+
+                                                            @if($errors->has('gender'))
+                                                                <p style="font-style: bold; color: red;">{{ $errors->first('gender') }}</p>
+                                                            @endif
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-12 col-sm-12">
+                                                    <div class="form-group">
+                                                        <div class="controls">
+                                                            <label>Status <code style="color:red;">required</code></label>
+                                                            <input type="text" class="form-control" value="{{ $detail_user->status == 1 ? 'Active' : 'Suspend' }}" readonly>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-12 col-sm-12">
+                                                    <div class="form-group">
+                                                        <div class="controls">
+                                                            <label>Type <code style="color:red;">required</code></label>
+                                                            <select name="user_type_id" 
+                                                                    id="user_type_id" 
+                                                                    class="form-control select2" disabled>
+                                                                    <option value="{{ "" }}" disabled selected>Choose</option>
+                                                                @foreach($user_type as $id => $user_type)
+                                                                    <option value="{{ $id }}" {{ old('user_type_id', isset($user) ? $user->user_type_id : '') == $id ? 'selected' : '' }}>{{ $user_type }}</option>
+                                                                @endforeach
+                                                            </select>
+                                                            
                                                         </div>
                                                     </div>
                                                 </div>
@@ -243,7 +305,18 @@
 
 @endsection
 
+@push('after-style')
+    <link rel="stylesheet" href="{{ asset('/back-design/third-party/datetimepicker/css/bootstrap-datetimepicker.min.css') }}">
+@endpush
+
 @push('after-script')
+
+    <script src="{{ url('https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js') }}" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+
+    <script src="{{ url('https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.21.0/moment.min.js') }}" type="text/javascript"></script>
+
+    <script src="{{ asset('/back-design/third-party/datetimepicker/js/bootstrap-datetimepicker.min.js') }}"></script>
+
     <script>
         $("#account-upload").on('change', function () {
             if (typeof (FileReader) != "undefined") {
@@ -272,5 +345,13 @@
                 this.value = "";
             };
         };
+    </script>
+
+    <script>
+        $(function () {
+            $('#date_of_birth').datetimepicker({
+                format: 'DD/MM/YYYY'
+            });
+        });
     </script>
 @endpush

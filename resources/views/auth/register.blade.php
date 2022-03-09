@@ -36,7 +36,7 @@
         @endif
         <!-- End Error -->
 
-        <form action="" method="POST" class="js-validate">
+        <form action="{{ route('register') }}" method="POST" class="js-validate">
 
           @csrf
 

@@ -27,6 +27,15 @@ class UpdateDetailUserRequest extends FormRequest
             'photo' => [
                 'nullable', 'mimes:jpeg,svg,png', 'max:5000',
             ],
+            'number_id' => [
+                'nullable', 'string', 'min:16',
+            ],
+            'gender' => [
+                'sometimes', 'required', 'integer', 'in:1,2',
+            ],
+            'date_of_birth' => [
+                'sometimes', 'required', 'date_format:d/m/Y',
+            ],
             'mobile_phone' => [
                 'nullable', 'string', 'max:255',
             ],

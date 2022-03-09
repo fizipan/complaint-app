@@ -14,6 +14,7 @@ class DetailUsers extends Model
     public $table = 'detail_users';
 
     protected $dates = [
+        'date_of_birth',
         'created_at',
         'updated_at',
         'deleted_at',

@@ -10,6 +10,7 @@ use App\Http\Requests\Backsite\UpdateDetailUserRequest;
 use App\Http\Requests\Backsite\UpdateUserRequest;
 
 use App\Models\DetailUsers;
+use App\Models\MasterData\UserType;
 use App\Models\Role;
 use App\Models\User;
 
@@ -44,8 +45,9 @@ class UsersController extends Controller
 
         $users = User::orderBy('created_at', 'desc')->paginate(500);
         $roles = Role::all()->pluck('title', 'id');
+        $user_type = UserType::all()->pluck('name', 'id');
 
-        return view('pages.backsite.management.users.index', compact('users', 'roles'));
+        return view('pages.backsite.management.users.index', compact('users', 'roles', 'user_type'));
     }
 
     public function store(StoreUserRequest $request, StoreDetailUserRequest $request_detail_user)
@@ -111,8 +113,9 @@ class UsersController extends Controller
         $detail_user = DetailUsers::where('users_id', $user->id)->first();
         $roles = Role::all()->pluck('title', 'id');
         $user->load('roles');
+        $user_type = UserType::all()->pluck('name', 'id');
 
-        return view('pages.backsite.management.users.edit', compact('roles', 'user', 'detail_user'));
+        return view('pages.backsite.management.users.edit', compact('roles', 'user', 'detail_user', 'user_type'));
     }
 
     /**

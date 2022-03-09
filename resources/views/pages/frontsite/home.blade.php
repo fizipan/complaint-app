@@ -46,7 +46,7 @@
         <div class="w-lg-80 mx-lg-auto">
 
             <!-- Form -->
-            <form action="" method="POST" class="card shadow-lg p-4 p-lg-7 js-validate" enctype="multipart/form-data">
+            <form action="{{ route('complaint_report.store') }}" method="POST" class="card shadow-lg p-4 p-lg-7 js-validate" enctype="multipart/form-data">
 
               @csrf
 
@@ -71,16 +71,29 @@
               <div class="js-form-message form-group mb-4">
                 <label for="title" class="input-label">Report Title <span class="text-danger">*</span></label>
                 <input type="text" class="form-control" name="title" id="title" value="{{ old('title') }}" placeholder="Please enter your report title." required>
+
+                @error('title')
+                    <span class="fs-5 mt-4 text-danger">{{ $message }}</sp>
+                @enderror
+
               </div>
 
               <div class="js-form-message form-group mb-4">
                 <label for="content" class="input-label">Report Content <span class="text-danger">*</span></label>
                 <textarea class="form-control" rows="6" style="resize: none" name="content" id="content" minlength="10" placeholder="Please enter your report content." required>{{ old('content') }}</textarea>
+
+                @error('content')
+                    <span class="fs-5 mt-4 text-danger">{{ $message }}</sp>
+                @enderror
               </div>
 
               <div class="js-form-message form-group mb-4">
                 <label for="incident_date" class="input-label">Incident Date <span class="text-danger">*</span></label>
                 <input type="text" class="form-control" name="incident_date" id="incident_date" placeholder="Select the incident date"  value="{{ old('incident_date') }}" autocomplete="off" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-inputmask-placeholder="dd/mm/yyyy" required>
+
+                @error('incident_date')
+                    <span class="fs-5 mt-4 text-danger">{{ $message }}</sp>
+                @enderror
               </div>
 
               <div class="js-form-message form-group mb-4">
@@ -98,6 +111,10 @@
 
                 </select>
                 <!-- End Select -->
+
+                @error('province_id')
+                    <span class="fs-5 mt-4 text-danger">{{ $message }}</sp>
+                @enderror
               </div>
 
               <div class="js-form-message form-group mb-4">
@@ -110,6 +127,10 @@
                   <option label="empty"></option>
                 </select>
                 <!-- End Select -->
+
+                @error('regency_id')
+                    <span class="fs-5 mt-4 text-danger">{{ $message }}</sp>
+                @enderror
               </div>
 
               <div class="js-form-message form-group mb-4">
@@ -122,6 +143,10 @@
                   <option label="empty"></option>
                 </select>
                 <!-- End Select -->
+
+                @error('district_id')
+                    <span class="fs-5 mt-4 text-danger">{{ $message }}</sp>
+                @enderror
               </div>
 
               <div class="js-form-message form-group mb-4">
@@ -139,6 +164,10 @@
                   
                 </select>
                 <!-- End Select -->
+
+                @error('category_complaint_id')
+                    <span class="fs-5 mt-4 text-danger">{{ $message }}</sp>
+                @enderror
               </div>
 
               <div class="js-form-message form-group mb-4">
